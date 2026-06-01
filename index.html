@@ -156,24 +156,58 @@
   }
 
   @media (max-width:640px){
-    .container{padding:0 10px}
-    header h1{font-size:.95rem}
-    .tabs{padding:10px 8px 6px}
-    .tab{padding:6px 12px;font-size:.74rem}
-    .day-card{padding:14px;margin-bottom:10px}
-    .sub-row{flex-wrap:wrap;gap:4px;padding:8px 0}
-    .sub-content{flex:1 1 100%;min-width:100%;font-size:.78rem;order:10}
-    .status-btns{order:11;margin-top:4px}
-    .sbtn{font-size:.7rem;padding:5px 12px;min-height:36px}
-    .btn{min-height:36px}
-    .btn-sm{min-height:30px}
-    .sub-notes{margin-left:4px!important;width:calc(100% - 8px)!important}
+    .container{padding:0 8px}
+    body{padding-bottom:60px}
+    header{padding:10px 12px}
+    header h1{font-size:.92rem}
+    .header-row{gap:6px}
+    .header-actions{gap:4px}
+    .act-btn{font-size:.66rem;padding:5px 9px}
+
+    /* Tabs: fewer, scrollable */
+    .tabs{padding:8px 6px 4px;gap:4px;justify-content:flex-start}
+    .tab{padding:5px 10px;font-size:.72rem;border-radius:16px}
+
+    /* Day card: less padding on mobile */
+    .day-card{padding:12px;margin-bottom:10px;border-radius:12px}
+    .day-header{margin-bottom:2px}
+    .day-header h3{font-size:.85rem}
+
+    /* Sub-row: FULL vertical stack */
+    .sub-row{flex-wrap:wrap;gap:2px;padding:10px 0}
+    /* Top line: subject tag + time + core-dot */
+    .subj-tag{font-size:.64rem;padding:2px 5px}
+    .time-badge{font-size:.62rem;min-width:28px}
+    .core-dot{font-size:.56rem}
+    /* Content: full width on its own line */
+    .sub-content{flex:1 1 100%;min-width:100%;font-size:.8rem;padding:2px 0;order:10;line-height:1.5}
+    /* Status buttons: full width below content */
+    .status-btns{order:11;width:100%;gap:6px}
+    .sbtn{flex:1;font-size:.72rem;padding:6px 0;min-height:38px;text-align:center;border-radius:16px}
+    /* Notes */
+    .sub-notes{margin-left:0!important;width:100%!important;margin-top:6px;font-size:.72rem}
+    /* Auto row */
+    .auto-row{padding:8px}
+    .auto-row .sub-content{font-size:.78rem}
+    .auto-row .review-round{font-size:.58rem}
+    /* Legend */
+    .legend{font-size:.66rem;gap:8px}
+
+    /* Cloud panel */
+    .cloud-panel{padding:10px}
+    .cloud-panel input{min-width:80px}
+
+    /* Assessment */
+    .assess-card{padding:12px}
   }
+
   @media (max-width:400px){
-    .subj-tag{font-size:.62rem;padding:2px 4px}
-    .time-badge{font-size:.6rem;min-width:28px}
-    .sbtn{font-size:.68rem;padding:4px 8px}
-    .sub-content{font-size:.74rem}
+    header h1{font-size:.85rem}
+    .tab{padding:4px 8px;font-size:.68rem}
+    .subj-tag{font-size:.6rem}
+    .sub-content{font-size:.76rem}
+    .sbtn{font-size:.68rem;padding:5px 0}
+    .day-card{padding:10px}
   }
 </style>
 </head>
