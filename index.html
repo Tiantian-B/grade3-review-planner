@@ -10,7 +10,8 @@
   --duo-green:#58cc02; --duo-green-bg:#e5f8d0; --duo-green-dark:#46a302;
   --duo-blue:#1cb0f6; --duo-blue-bg:#ddf4ff; --duo-blue-dark:#1498d8;
   --duo-purple:#ce82ff; --duo-purple-bg:#f4e5ff; --duo-purple-dark:#a568cc;
-  --duo-orange:#ff9600; --duo-orange-bg:#ffecd0; --duo-orange-dark:#e08600;
+  --duo-orange:#ff9600; --duo-orange-bg:#fff3e0; --duo-orange-dark:#e08600;
+  --duo-orange-card:#fff8f0; --duo-orange-border:#ffd499;
   --duo-pink:#ff4b7d; --duo-pink-bg:#ffe5ed; --duo-pink-dark:#e0436e;
   --duo-red:#ff4b4b; --duo-red-bg:#ffe5e5;
   --text:#3c3c3c; --text2:#afafaf; --bg:#fff; --card:#fff; --border:#e5e5e5;
@@ -66,18 +67,18 @@ header h1{font-size:1.15rem;text-align:center;font-weight:800;color:var(--text);
 .task-card.math-card{border-color:#b8ddf8;background:#f6fbff}
 .task-card.chinese-card{border-color:#f8c4d8;background:#fef9fb}
 .task-card.english-card{border-color:#b8e0c8;background:#f8fdf9}
-.task-card.auto-card{border-color:#dcc8f0;background:#fcf9ff}
+.task-card.auto-card{border-color:var(--duo-orange-border);background:var(--duo-orange-card)}
 
 .task-card .card-top{display:flex;align-items:center;gap:8px;width:100%}
 .task-card .card-subj{font-size:.66rem;font-weight:800;padding:3px 8px;border-radius:8px;white-space:nowrap;letter-spacing:.02em}
 .math-subj{background:var(--duo-blue-bg);color:var(--duo-blue-dark)}
 .chinese-subj{background:var(--duo-pink-bg);color:var(--duo-pink-dark)}
 .english-subj{background:var(--duo-green-bg);color:var(--duo-green-dark)}
-.auto-tag{font-size:.62rem;background:var(--duo-purple);color:#fff;padding:3px 8px;border-radius:8px;font-weight:800;white-space:nowrap;letter-spacing:.04em}
+.auto-tag{font-size:.62rem;background:var(--duo-orange);color:#fff;padding:3px 8px;border-radius:8px;font-weight:800;white-space:nowrap;letter-spacing:.04em}
 
 .task-card .card-time{font-size:.66rem;color:var(--text2);white-space:nowrap;font-weight:600}
 .task-card .card-core{font-size:.6rem;color:var(--duo-orange-dark);font-weight:800;white-space:nowrap;background:var(--duo-orange-bg);padding:2px 6px;border-radius:6px}
-.task-card .card-source{font-size:.6rem;color:var(--duo-purple);font-weight:600;white-space:nowrap}
+.task-card .card-source{font-size:.6rem;color:var(--duo-orange-dark);font-weight:600;white-space:nowrap}
 
 .task-card .card-body{font-size:.82rem;line-height:1.5;flex:1 1 100%;min-width:100%;font-weight:600;color:#4b4b4b}
 
