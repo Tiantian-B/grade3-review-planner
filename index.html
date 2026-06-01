@@ -5,210 +5,148 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>三年级期末复习</title>
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --bg:#f5f3f0;
-    --card:#fff;
-    --text:#3b3a36;
-    --text2:#8e8b82;
-    --border:#e8e4dd;
-    --blue:#6b9ac4;
-    --blue-bg:#eef4f9;
-    --green:#7a9e7e;
-    --green-bg:#eef5ef;
-    --amber:#c9a44b;
-    --amber-bg:#fdf8ef;
-    --red:#c97b7b;
-    --red-bg:#faf0f0;
-    --purple:#9b8ec4;
-    --purple-bg:#f5f2fa;
-    --pink:#c47b9e;
-    --pink-bg:#faf0f5;
-  }
-  body{font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:80px}
-  .container{max-width:720px;margin:0 auto;padding:0 16px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f2f0ed; --card:#fff; --text:#2d2b28; --text2:#8b8680; --border:#e5e0d9;
+  --m-blue:#5b8cb8; --m-blue-bg:#eaf2f9; --m-blue-card:#f6f9fc;
+  --c-pink:#b8708c; --c-pink-bg:#faf0f5; --c-pink-card:#fdf8fa;
+  --e-green:#6a9e7a; --e-green-bg:#edf5f0; --e-green-card:#f6faf7;
+  --amber:#c4a04a; --amber-bg:#fdf7ed;
+  --purple:#8b7eb8; --purple-bg:#f3f1f9; --purple-card:#f9f7fc;
+  --red:#c47b7b; --red-bg:#faf1f1;
+  --today-glow:rgba(91,140,184,.12);
+}
+body{font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:80px}
 
-  /* Header */
-  header{background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 16px;position:sticky;top:0;z-index:10}
-  header h1{font-size:1.05rem;text-align:center;font-weight:600;letter-spacing:.02em;color:var(--text)}
-  .header-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:8px;flex-wrap:wrap}
-  .pill{font-size:.7rem;padding:3px 10px;border-radius:12px;font-weight:500}
-  .pill-ok{background:var(--green-bg);color:var(--green)}
-  .pill-warn{background:var(--amber-bg);color:var(--amber)}
-  .pill-skip{background:#f1f0ed;color:var(--text2)}
-  .progress-wrap{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
-  .progress-fill{height:100%;background:var(--green);transition:width .4s ease;border-radius:2px}
-  .header-actions{margin-top:6px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+/* ===== HEADER ===== */
+header{background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 16px;position:sticky;top:0;z-index:10}
+header h1{font-size:1rem;text-align:center;font-weight:700}
+.header-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px;flex-wrap:wrap}
+.progress-wrap{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.progress-fill{height:100%;background:var(--m-blue);transition:width .4s ease;border-radius:2px}
+.pill{font-size:.68rem;padding:2px 9px;border-radius:10px;font-weight:600}
+.pill-done{background:#d4e5d0;color:#4a7c4f}
+.pill-warn{background:var(--amber-bg);color:#8b6914}
+.pill-skip{background:#e8e5e0;color:var(--text2)}
+.header-act{font-size:.68rem;padding:4px 12px;border-radius:14px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text2);transition:all .15s;font-family:inherit;white-space:nowrap}
+.header-act.sync{background:var(--purple-bg);border-color:#d5cee8;color:var(--purple)}
+.header-act.danger{background:var(--red-bg);border-color:#e8d0d0;color:var(--red)}
 
-  /* Small action button */
-  .act-btn{font-size:.68rem;padding:4px 10px;border-radius:14px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text2);transition:all .15s;font-family:inherit;white-space:nowrap}
-  .act-btn:hover{border-color:#c4bfb6;color:var(--text)}
-  .act-btn.primary{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
-  .act-btn.danger{border-color:var(--red);color:var(--red);background:var(--red-bg)}
-  .act-btn.sync{border-color:var(--purple);color:var(--purple);background:var(--purple-bg)}
+/* Cloud panel */
+.cloud-panel{display:none;background:var(--purple-bg);border:1px solid #e0daf0;border-radius:14px;padding:12px;margin:8px auto 0;max-width:520px;font-size:.74rem}
+.cloud-panel input{flex:1;min-width:100px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;font-size:.72rem;font-family:inherit;background:var(--card)}
+.cloud-panel .crow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.cloud-panel .hint{font-size:.64rem;color:var(--text2);margin-top:4px}
+.cloud-panel .hint a{color:var(--purple)}
 
-  /* Cloud panel */
-  .cloud-panel{display:none;background:var(--purple-bg);border:1px solid #e0daf0;border-radius:12px;padding:12px;margin:8px auto 0;max-width:580px;font-size:.74rem}
-  .cloud-panel input{flex:1;min-width:100px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;font-size:.72rem;font-family:inherit;background:var(--card)}
-  .cloud-panel .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:6px}
-  .cloud-panel .hint{font-size:.65rem;color:var(--text2);margin-top:4px}
-  .cloud-panel .hint a{color:var(--purple)}
+/* ===== TABS ===== */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 16px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:7px 15px;border-radius:18px;background:var(--card);font-size:.76rem;cursor:pointer;white-space:nowrap;transition:all .2s;color:var(--text2);font-weight:500}
+.tab:hover{color:var(--text)}
+.tab.active{background:var(--text);color:#fff}
 
-  /* Tabs */
-  .tabs{display:flex;gap:6px;overflow-x:auto;padding:14px 16px 8px;-webkit-overflow-scrolling:touch;scrollbar-width:none;justify-content:center}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex-shrink:0;padding:7px 15px;border-radius:20px;background:var(--card);font-size:.78rem;cursor:pointer;white-space:nowrap;transition:all .2s;color:var(--text2);border:1px solid transparent;font-weight:500}
-  .tab:hover{color:var(--text);border-color:var(--border)}
-  .tab.active{background:var(--text);color:#fff;border-color:var(--text)}
-  .tab .dot{display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:4px;vertical-align:middle}
-  .tab .dot.red{background:var(--red)}
-  .tab .dot.green{background:var(--green)}
+/* ===== CONTENT AREA ===== */
+.container{max-width:720px;margin:0 auto;padding:0 14px 40px}
 
-  /* Alert */
-  .alert{background:var(--amber-bg);border:1px solid #f0e4c8;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.78rem;display:none;color:#8b6914}
-  .alert.show{display:block}
-  .alert strong{color:#6b5010}
+/* ===== DAY SECTION ===== */
+.day-section{margin-bottom:16px}
+.day-section .day-bar{display:flex;justify-content:space-between;align-items:center;padding:8px 4px 6px}
+.day-bar h3{font-size:.9rem;font-weight:700}
+.day-bar .day-meta{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--text2)}
+.day-badge{font-size:.64rem;padding:3px 9px;border-radius:8px;font-weight:700}
+.day-badge.review{background:var(--amber-bg);color:var(--amber)}
+.day-badge.test{background:var(--m-blue-bg);color:var(--m-blue)}
+.day-bar.today-bar{background:var(--m-blue-bg);margin:-4px;padding:8px;border-radius:10px;margin-bottom:6px}
+.day-stats{font-size:.68rem;color:var(--text2);padding:0 4px 6px}
 
-  /* Day card */
-  .day-card{background:var(--card);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.04),0 2px 12px rgba(0,0,0,.03)}
-  .day-card.today{border:1.5px solid var(--blue);box-shadow:0 1px 4px rgba(107,154,196,.1),0 4px 16px rgba(107,154,196,.08)}
-  .day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-  .day-header h3{font-size:.95rem;font-weight:600}
-  .day-header .meta{display:flex;align-items:center;gap:6px}
-  .day-time{font-size:.72rem;color:var(--text2)}
-  .badge{font-size:.66rem;padding:3px 10px;border-radius:10px;font-weight:600;letter-spacing:.02em}
-  .badge.review{background:var(--amber-bg);color:var(--amber)}
-  .badge.test{background:var(--blue-bg);color:var(--blue)}
-  .day-stats{font-size:.7rem;color:var(--text2);margin-bottom:10px}
+/* ===== TASK CARD ===== */
+.task-card{border-radius:12px;padding:12px 14px;margin-bottom:6px;display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px;transition:box-shadow .15s}
+.task-card.math-card{background:var(--m-blue-card);border-left:4px solid var(--m-blue)}
+.task-card.chinese-card{background:var(--c-pink-card);border-left:4px solid var(--c-pink)}
+.task-card.english-card{background:var(--e-green-card);border-left:4px solid var(--e-green)}
+.task-card.auto-card{background:var(--purple-card);border-left:4px solid var(--purple)}
 
-  /* Legend */
-  .legend{font-size:.7rem;color:var(--text2);padding:0 0 10px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.task-card .card-top{display:flex;align-items:center;gap:6px;width:100%}
+.task-card .card-subj{font-size:.64rem;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.math-subj{background:#d4e2f0;color:var(--m-blue)}
+.chinese-subj{background:#f0dce5;color:var(--c-pink)}
+.english-subj{background:#d4e8d8;color:var(--e-green)}
+.auto-tag{font-size:.6rem;background:var(--purple);color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;white-space:nowrap}
 
-  /* Subtask row */
-  .sub-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;font-size:.8rem}
-  .sub-row+.sub-row{border-top:1px solid #f7f5f2}
-  .sub-row.auto-row{background:var(--purple-bg);border-radius:10px;padding:8px 10px;margin:4px 0;border-left:3px solid var(--purple);border-top:none}
-  .auto-row .auto-badge{font-size:.6rem;background:var(--purple);color:#fff;padding:2px 6px;border-radius:4px;white-space:nowrap;font-weight:600;letter-spacing:.03em}
-  .auto-row .review-round{font-size:.6rem;color:var(--purple);white-space:nowrap;font-weight:500}
+.task-card .card-time{font-size:.64rem;color:var(--text2);white-space:nowrap}
+.task-card .card-core{font-size:.58rem;color:var(--amber);font-weight:600;white-space:nowrap}
+.task-card .card-source{font-size:.58rem;color:var(--purple);font-weight:500;white-space:nowrap}
 
-  /* Subject tag */
-  .subj-tag{font-size:.66rem;font-weight:600;padding:2px 6px;border-radius:5px;white-space:nowrap;min-width:34px;text-align:center;flex-shrink:0}
-  .subj-math{background:var(--blue-bg);color:var(--blue)}
-  .subj-chinese{background:var(--pink-bg);color:var(--pink)}
-  .subj-english{background:var(--green-bg);color:var(--green)}
+.task-card .card-body{font-size:.8rem;line-height:1.5;flex:1 1 100%;min-width:100%}
 
-  /* Time badge */
-  .time-badge{font-size:.64rem;color:var(--text2);flex-shrink:0;min-width:36px;text-align:center}
+.task-card .card-actions{display:flex;gap:5px;width:100%}
+.cbtn{flex:1;font-size:.66rem;padding:5px 0;border-radius:10px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text2);transition:all .12s;font-family:inherit;font-weight:500;text-align:center}
+.cbtn.on-done{background:#7a9e7e;color:#fff;border-color:#7a9e7e}
+.cbtn.on-warn{background:var(--amber);color:#fff;border-color:var(--amber)}
+.cbtn.on-skip{background:#bfbab2;color:#fff;border-color:#bfbab2}
+.cbtn:hover{opacity:.85}
 
-  /* Content */
-  .sub-content{flex:1;font-size:.8rem;min-width:0}
-  .sub-content.core{font-weight:600}
-  .core-dot{font-size:.58rem;color:var(--amber);white-space:nowrap;margin-left:2px}
+.task-card .card-note{width:100%;margin-top:2px;font-size:.68rem;padding:5px 10px;border:1px solid var(--border);border-radius:8px;display:none;font-family:inherit;background:var(--card);color:var(--text)}
+.task-card .card-note:focus{outline:none;border-color:var(--m-blue)}
 
-  /* Status buttons */
-  .status-btns{display:flex;gap:4px;flex-shrink:0}
-  .sbtn{font-size:.65rem;padding:4px 10px;border-radius:14px;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text2);transition:all .12s;white-space:nowrap;font-family:inherit;font-weight:500}
-  .sbtn:hover{opacity:.85}
-  .sbtn.on-done{background:var(--green);color:#fff;border-color:var(--green)}
-  .sbtn.on-warn{background:var(--amber);color:#fff;border-color:var(--amber)}
-  .sbtn.on-skip{background:#c4bfb6;color:#fff;border-color:#c4bfb6}
+/* ===== ALERT / LEGEND ===== */
+.alert{background:var(--amber-bg);border:1px solid #f0e4c8;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:.76rem;display:none;color:#8b6914}
+.alert.show{display:block}
+.alert strong{color:#6b5010}
+.legend{font-size:.68rem;color:var(--text2);padding:0 0 10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-  /* Notes input */
-  .sub-notes{width:100%;margin-top:4px;font-size:.7rem;padding:5px 10px;border:1px solid var(--border);border-radius:8px;display:none;font-family:inherit;background:var(--bg);color:var(--text);transition:border-color .15s}
-  .sub-notes:focus{outline:none;border-color:var(--blue);background:var(--card)}
+/* ===== ERROR / ASSESS ===== */
+.err-section{margin-bottom:18px}
+.err-section h4{font-size:.8rem;margin-bottom:8px;padding:5px 10px;border-radius:6px;display:inline-block;font-weight:600}
+.err-section h4.mh{background:var(--m-blue-bg);color:var(--m-blue)}
+.err-section h4.ch{background:var(--c-pink-bg);color:var(--c-pink)}
+.err-section h4.eh{background:var(--e-green-bg);color:var(--e-green)}
+.err-table{width:100%;font-size:.74rem;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.err-table th,.err-table td{padding:6px 8px;border-bottom:1px solid var(--border);text-align:left}
+.err-table th{background:#faf9f7;font-weight:600;font-size:.66rem;color:var(--text2)}
+.err-table tr:last-child td{border-bottom:none}
+.err-table input{width:100%;border:none;font-size:.74rem;padding:2px;background:transparent;font-family:inherit;color:var(--text)}
+.err-table input:focus{outline:none}
+.err-row.resolved td{opacity:.3;text-decoration:line-through}
 
-  /* Buttons */
-  .btn{padding:8px 16px;border:none;border-radius:10px;font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit;font-weight:500}
-  .btn-blue{background:var(--blue);color:#fff}
-  .btn-outline{background:var(--card);color:var(--red);border:1px solid var(--red)}
-  .btn-sm{padding:4px 10px;font-size:.7rem;border-radius:8px}
-  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.assess-card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.assess-card h4{font-size:.82rem;margin-bottom:8px;font-weight:600}
+.assess-card label{display:block;font-size:.7rem;margin-bottom:2px;color:var(--text2);margin-top:8px}
+.assess-card input,.assess-card textarea{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:.78rem;margin-bottom:4px;font-family:inherit;background:var(--bg);color:var(--text)}
+.assess-card input:focus,.assess-card textarea:focus{outline:none;border-color:var(--m-blue)}
+.assess-card textarea{min-height:50px;resize:vertical}
 
-  /* Error */
-  .err-section{margin-bottom:20px}
-  .err-section h4{font-size:.82rem;margin-bottom:8px;padding:6px 12px;border-radius:8px;display:inline-block;font-weight:600}
-  .err-section h4.mh{background:var(--blue-bg);color:var(--blue)}
-  .err-section h4.ch{background:var(--pink-bg);color:var(--pink)}
-  .err-section h4.eh{background:var(--green-bg);color:var(--green)}
-  .err-table{width:100%;font-size:.76rem;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03)}
-  .err-table th,.err-table td{padding:7px 8px;border-bottom:1px solid var(--border);text-align:left}
-  .err-table th{background:#faf9f7;font-weight:600;font-size:.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:.04em}
-  .err-table tr:last-child td{border-bottom:none}
-  .err-table input{width:100%;border:none;font-size:.76rem;padding:3px;background:transparent;font-family:inherit;color:var(--text)}
-  .err-table input:focus{outline:none}
-  .err-row.resolved td{opacity:.3;text-decoration:line-through}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:8px 20px;border-radius:20px;font-size:.78rem;z-index:100;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.toast.show{opacity:1}
 
-  /* Assessment */
-  .assess-card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-  .assess-card h4{font-size:.85rem;margin-bottom:8px;font-weight:600}
-  .assess-card label{display:block;font-size:.72rem;margin-bottom:3px;color:var(--text2);margin-top:8px}
-  .assess-card input,.assess-card textarea{width:100%;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:.8rem;margin-bottom:4px;font-family:inherit;background:var(--bg);color:var(--text)}
-  .assess-card input:focus,.assess-card textarea:focus{outline:none;border-color:var(--blue);background:var(--card)}
-  .assess-card textarea{min-height:50px;resize:vertical}
+/* ===== RESPONSIVE ===== */
+@media (max-width:640px){
+  .container{padding:0 8px}
+  body{padding-bottom:60px}
+  header{padding:10px 12px}
+  header h1{font-size:.88rem}
+  .tabs{padding:8px 8px 4px;gap:4px}
+  .tab{padding:5px 10px;font-size:.7rem}
+  .day-section .day-bar{padding:6px 2px 4px}
+  .day-bar h3{font-size:.82rem}
+  .task-card{padding:10px 12px;border-radius:10px}
+  .task-card .card-body{font-size:.78rem}
+  .cbtn{font-size:.7rem;padding:6px 0;min-height:36px;border-radius:10px}
+  .card-note{margin-top:4px!important}
+}
+@media (max-width:400px){
+  header h1{font-size:.82rem}
+  .tab{padding:4px 8px;font-size:.66rem}
+  .task-card{padding:8px 10px}
+  .task-card .card-body{font-size:.74rem}
+  .cbtn{font-size:.66rem}
+}
 
-  /* Toast */
-  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;padding:8px 20px;border-radius:20px;font-size:.78rem;z-index:100;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,.15)}
-  .toast.show{opacity:1}
-
-  @media print{
-    header,.tabs,.actions,.toast,.alert,.header-actions,.cloud-panel{display:none}
-    .day-card{break-inside:avoid;box-shadow:none;border:1px solid #ddd}
-  }
-
-  @media (max-width:640px){
-    .container{padding:0 8px}
-    body{padding-bottom:60px}
-    header{padding:10px 12px}
-    header h1{font-size:.92rem}
-    .header-row{gap:6px}
-    .header-actions{gap:4px}
-    .act-btn{font-size:.66rem;padding:5px 9px}
-
-    /* Tabs: fewer, scrollable */
-    .tabs{padding:8px 6px 4px;gap:4px;justify-content:flex-start}
-    .tab{padding:5px 10px;font-size:.72rem;border-radius:16px}
-
-    /* Day card: less padding on mobile */
-    .day-card{padding:12px;margin-bottom:10px;border-radius:12px}
-    .day-header{margin-bottom:2px}
-    .day-header h3{font-size:.85rem}
-
-    /* Sub-row: FULL vertical stack */
-    .sub-row{flex-wrap:wrap;gap:2px;padding:10px 0}
-    /* Top line: subject tag + time + core-dot */
-    .subj-tag{font-size:.64rem;padding:2px 5px}
-    .time-badge{font-size:.62rem;min-width:28px}
-    .core-dot{font-size:.56rem}
-    /* Content: full width on its own line */
-    .sub-content{flex:1 1 100%;min-width:100%;font-size:.8rem;padding:2px 0;order:10;line-height:1.5}
-    /* Status buttons: full width below content */
-    .status-btns{order:11;width:100%;gap:6px}
-    .sbtn{flex:1;font-size:.72rem;padding:6px 0;min-height:38px;text-align:center;border-radius:16px}
-    /* Notes */
-    .sub-notes{margin-left:0!important;width:100%!important;margin-top:6px;font-size:.72rem}
-    /* Auto row */
-    .auto-row{padding:8px}
-    .auto-row .sub-content{font-size:.78rem}
-    .auto-row .review-round{font-size:.58rem}
-    /* Legend */
-    .legend{font-size:.66rem;gap:8px}
-
-    /* Cloud panel */
-    .cloud-panel{padding:10px}
-    .cloud-panel input{min-width:80px}
-
-    /* Assessment */
-    .assess-card{padding:12px}
-  }
-
-  @media (max-width:400px){
-    header h1{font-size:.85rem}
-    .tab{padding:4px 8px;font-size:.68rem}
-    .subj-tag{font-size:.6rem}
-    .sub-content{font-size:.76rem}
-    .sbtn{font-size:.68rem;padding:5px 0}
-    .day-card{padding:10px}
-  }
+@media print{
+  header,.tabs,.toast,.alert,.day-bar.today-bar{display:none}
+  .task-card{break-inside:avoid;box-shadow:none}
+}
 </style>
 </head>
 <body>
@@ -216,37 +154,31 @@
 <header>
   <h1>📚 三年级期末复习</h1>
   <div class="header-row">
-    <span style="font-size:.78rem;font-weight:600" id="totalPct">0%</span>
-    <span class="pill pill-ok" id="pillDone" style="display:none">✓ <span id="cntDone">0</span></span>
-    <span class="pill pill-warn" id="pillWarn" style="display:none">⟳ <span id="cntWarn">0</span></span>
-    <span class="pill pill-skip" id="pillSkip" style="display:none">— <span id="cntSkip">0</span></span>
+    <span style="font-size:.82rem;font-weight:700" id="totalPct">0%</span>
+    <span class="pill pill-done" id="pillDone" style="display:none">✓<span id="cntDone">0</span></span>
+    <span class="pill pill-warn" id="pillWarn" style="display:none">⟳<span id="cntWarn">0</span></span>
+    <span class="pill pill-skip" id="pillSkip" style="display:none">—<span id="cntSkip">0</span></span>
+    <button class="header-act sync" onclick="toggleCloudPanel()">☁️ 云端同步</button>
+    <button class="header-act danger" onclick="if(confirm('确定清除所有数据？')){clearAll();}">重置</button>
   </div>
   <div class="progress-wrap"><div class="progress-fill" id="progBar" style="width:0%"></div></div>
-  <div class="header-actions">
-    <span style="font-size:.66rem;color:var(--text2)" id="lastSave"></span>
-    <button class="act-btn" onclick="exportData()">📥 备份</button>
-    <button class="act-btn" onclick="document.getElementById('importFile').click()">📤 恢复</button>
-    <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
-    <button class="act-btn sync" onclick="toggleCloudPanel()">☁️ 同步</button>
-    <button class="act-btn danger" onclick="if(confirm('确定清除所有数据？建议先导出备份。')){clearAll();}">重置</button>
-  </div>
+  <div style="text-align:center;margin-top:4px"><span style="font-size:.64rem;color:var(--text2)" id="lastSave"></span></div>
   <div class="cloud-panel" id="cloudPanel">
-    <div class="row">
+    <div class="crow">
       <input id="jsonbinKey" placeholder="JSONBin API Key">
       <input id="jsonbinId" placeholder="Bin ID">
-      <button class="act-btn primary" onclick="saveCloudConfig()">保存</button>
+      <button class="header-act sync" onclick="saveCloudConfig()">保存配置</button>
     </div>
-    <div class="row">
-      <button class="act-btn primary" onclick="syncToCloud()">📤 上传到云端</button>
-      <button class="act-btn primary" onclick="syncFromCloud()">📥 从云端加载</button>
-      <span id="cloudStatus" style="font-size:.66rem;color:var(--text2)"></span>
+    <div class="crow">
+      <button class="header-act sync" onclick="syncToCloud()">📤 上传到云端</button>
+      <button class="header-act sync" onclick="syncFromCloud()">📥 从云端加载</button>
+      <span id="cloudStatus" style="font-size:.64rem;color:var(--text2)"></span>
     </div>
-    <div class="hint">注册 <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> → 创建 Bin → 复制 Key 和 ID 填入上方</div>
+    <div class="hint">注册 <a href="https://jsonbin.io" target="_blank">jsonbin.io</a> → 创建 Bin → 复制 Key 和 ID 填入</div>
   </div>
 </header>
 
 <div class="tabs" id="tabBar"></div>
-
 <div class="container" id="content"></div>
 <div class="toast" id="toast"></div>
 
@@ -255,7 +187,7 @@
 // PLAN DATA
 // ============================================================
 const W = [
-{ name:'第一周 基础梳理·上半册（6/2-6/7）', days:[
+{ name:'第一周 · 基础梳理（6/2-6/7）', days:[
 { date:'周一 6/2', subs:[
   {s:'math',d:'数学',t:'core',tags:'年月日',time:3, c:'默写大小月口诀"一三五七八十腊，三十一天永不差"'},
   {s:'math',d:'数学',t:'',tags:'年月日',time:5, c:'判断平年/闰年练习3道（2024、1900、2000年），注意整百年÷400的规则'},
@@ -310,7 +242,7 @@ const W = [
   {s:'english',d:'英语',t:'',tags:'复习',time:5, c:'Unit 1-3句型快速问答（家长随机问，孩子口头答）'},
 ]},
 ]},
-{ name:'第二周 基础梳理·下半册（6/8-6/14）', days:[
+{ name:'第二周 · 基础梳理（6/8-6/14）', days:[
 { date:'周一 6/8', subs:[
   {s:'math',d:'数学',t:'core',tags:'乘法',time:8, c:'口算+笔算混合10道（限时8分钟），检查速度和正确率'},
   {s:'math',d:'数学',t:'',tags:'乘法',time:5, c:'应用题2道：用乘法解决实际问题（如：每箱苹果24千克，35箱共多少千克）'},
@@ -368,7 +300,7 @@ const W = [
   {s:'english',d:'英语',t:'',tags:'复习',time:5, c:'Unit 4-5句型快速问答'},
 ]},
 ]},
-{ name:'第三周 专项强化·查漏补缺（6/15-6/21）', days:[
+{ name:'第三周 · 专项强化（6/15-6/21）', days:[
 { date:'周一 6/15', subs:[
   {s:'math',d:'数学',t:'core',tags:'除法',time:5, c:'口算10道：整十整百数÷一位数（600÷3, 240÷8, 350÷7, 800÷4…）'},
   {s:'math',d:'数学',t:'',tags:'除法',time:3, c:'估算练习5道（如：359÷4≈90，"大约"类题目的估算方法）'},
@@ -422,7 +354,7 @@ const W = [
   {s:'english',d:'英语',t:'',tags:'检测',time:10, c:'Unit 1-6句型快速问答闯关（家长随机问10句，全部答对算通关）'},
 ]},
 ]},
-{ name:'第四周 冲刺模拟·查漏补缺（6/22-6/28）', days:[
+{ name:'第四周 · 冲刺模拟（6/22-6/28）', days:[
 { date:'周一 6/22', subs:[
   {s:'math',d:'数学',t:'core',tags:'方向',time:3, c:'记住8个方向：东、南、西、北、东南、东北、西南、西北'},
   {s:'math',d:'数学',t:'',tags:'方向',time:5, c:'看简单路线图练习：能描述"从A地出发，向___方向走到B地"'},
@@ -482,10 +414,10 @@ const SPACED_SCHEDULE = {
   '句型':[1,4], '阅读':[3], '作文':[4],
   '复习':[], '检测':[], '模拟':[], '准备':[],
 };
-const ROUND_LABEL = { 1:'第1轮回滚', 2:'第2轮回滚', 3:'第3轮回滚' };
+const ROUND_LABEL = { 1:'回滚①', 2:'回滚②', 3:'回滚③' };
 
 // ===== STATE =====
-const SK = 'review_v5';
+const SK = 'review_v6';
 let S = loadState();
 function defaultState() {
   const st = { subs:{}, autoSubs:{}, errors:{math:[],chinese:[],english:[]}, assess:{} };
@@ -511,7 +443,6 @@ function loadState() {
 }
 function save() { localStorage.setItem(SK, JSON.stringify(S)); updateLastSave(); }
 
-// ===== HELPERS =====
 function gs(wi,di,si) { return S.subs[`${wi}-${di}-${si}`]?.status || 'none'; }
 function gn(wi,di,si) { return S.subs[`${wi}-${di}-${si}`]?.note || ''; }
 function autoStatus(id) { return S.autoSubs[id]?.status || 'none'; }
@@ -541,7 +472,6 @@ function upAutoNote(id, v) {
   S.autoSubs[id].note = v; save();
 }
 
-// ===== FLATTEN DAYS =====
 function flattenDays() {
   const flat = [];
   W.forEach((w, wi) => { w.days.forEach((d, di) => { flat.push({ wi, di, date: d.date, badge: d.badge }); }); });
@@ -556,7 +486,6 @@ function findDayAtOffset(fromWi, fromDi, offset) {
   return null;
 }
 
-// ===== AUTO-ADJUSTMENT ENGINE =====
 function computeAutoTasks() {
   const autoTasks = {};
   W.forEach((w, wi) => {
@@ -587,7 +516,6 @@ function computeAutoTasks() {
   return autoTasks;
 }
 
-// ===== PROGRESS =====
 function weekProgress(wi) {
   let t=0, d=0, w=0, s=0;
   W[wi].days.forEach((day,di)=>{ day.subs.forEach((_,si)=>{
@@ -609,26 +537,16 @@ function totalProgress() {
 
 function computeSummary() {
   const subWarn = { math:0, chinese:0, english:0 };
-  const autoTasks = computeAutoTasks();
-  let totalAuto = 0;
+  const autoTasks = computeAutoTasks(); let totalAuto = 0;
   Object.values(autoTasks).forEach(tasks => { totalAuto += tasks.length; });
   W.forEach((w,wi)=>{ w.days.forEach((d,di)=>{ d.subs.forEach((sub,si)=>{
     if(gs(wi,di,si)==='warn') subWarn[sub.s] = (subWarn[sub.s]||0)+1;
   });});});
   const summary = [];
-  if(subWarn.math>=4) summary.push({subj:'数学', msg:`${subWarn.math}项需回滚，建议放慢节奏，先保证正确率`});
+  if(subWarn.math>=4) summary.push({subj:'数学', msg:`${subWarn.math}项需回滚，建议放慢节奏`});
   if(subWarn.chinese>=4) summary.push({subj:'语文', msg:`${subWarn.chinese}项需回滚，建议每日听写量减半`});
   if(subWarn.english>=3) summary.push({subj:'英语', msg:`${subWarn.english}项需回滚，建议增加跟读时间`});
-  if(totalAuto>0) summary.push({subj:'回滚', msg:`${totalAuto} 项回滚任务已按记忆曲线自动排入后续日程`});
-  const accel = [];
-  ['math','chinese','english'].forEach(sb=>{
-    let t=0,d=0;
-    W.forEach((w,wi)=>{ w.days.forEach((day,di)=>{ day.subs.forEach((sub,si)=>{
-      if(sub.s===sb){t++; if(gs(wi,di,si)==='done')d++;}
-    });});});
-    if(t>0&&d/t>0.8) accel.push(sb==='math'?'数学':sb==='chinese'?'语文':'英语');
-  });
-  if(accel.length>0) summary.push({subj:'加速', msg:`${accel.join('、')}完成率>80%，可以考虑适当加速`});
+  if(totalAuto>0) summary.push({subj:'回滚', msg:`${totalAuto} 项任务已按记忆曲线自动排入后续日程`});
   return summary;
 }
 
@@ -649,13 +567,10 @@ function renderTabs() {
   let h = '';
   W.forEach((w,i)=>{
     const p = weekProgress(i);
-    let dot = '';
-    if(p.w>0) dot = '<span class="dot red"></span>';
-    else if(p.pct>=80) dot = '<span class="dot green"></span>';
-    h += `<div class="tab${curTab==='week-'+i?' active':''}" onclick="switchTab('week-${i}')">${dot}第${i+1}周 <span style="font-size:.7rem;opacity:.7;margin-left:3px">${p.pct}%</span></div>`;
+    h += `<div class="tab${curTab==='week-'+i?' active':''}" onclick="switchTab('week-${i}')">第${i+1}周 <span style="font-size:.68rem;opacity:.65">${p.pct}%</span></div>`;
   });
   const errTotal = (S.errors.math||[]).filter(e=>!e.resolved).length + (S.errors.chinese||[]).filter(e=>!e.resolved).length + (S.errors.english||[]).filter(e=>!e.resolved).length;
-  h += `<div class="tab${curTab==='errors'?' active':''}" onclick="switchTab('errors')">错题${errTotal>0?' <span style="font-size:.68rem;opacity:.7">'+errTotal+'</span>':''}</div>`;
+  h += `<div class="tab${curTab==='errors'?' active':''}" onclick="switchTab('errors')">错题${errTotal>0?' · '+errTotal:''}</div>`;
   h += `<div class="tab${curTab==='assess'?' active':''}" onclick="switchTab('assess')">评估</div>`;
   document.getElementById('tabBar').innerHTML = h;
 }
@@ -673,17 +588,22 @@ function renderWeek(wi) {
   const autoTasks = computeAutoTasks();
   const summary = computeSummary();
   const p = weekProgress(wi);
-  let h = '<div class="legend"><span class="subj-tag subj-math">数学</span><span class="subj-tag subj-chinese">语文</span><span class="subj-tag subj-english">英语</span><span style="margin-left:8px;color:var(--purple)">┃紫色=自动回滚</span></div>';
+  let h = '';
 
+  // Legend
+  h += `<div class="legend"><span class="card-subj math-subj" style="font-size:.64rem">数学</span><span class="card-subj chinese-subj" style="font-size:.64rem">语文</span><span class="card-subj english-subj" style="font-size:.64rem">英语</span><span style="margin-left:4px">按学科分色</span><span style="margin-left:8px;width:10px;height:10px;display:inline-block;background:var(--purple-card);border-left:3px solid var(--purple);border-radius:2px"></span><span style="color:var(--purple)">回滚</span></div>`;
+
+  // Alert
   if(summary.length>0){
     h += '<div class="alert show"><strong>智能提醒</strong>';
     summary.forEach(s=>{ h += `<div class="alert-item">· ${s.subj}：${s.msg}</div>`; });
     h += '</div>';
   }
 
+  // Week stats
   const weekAutoTasks = Object.entries(autoTasks).filter(([key])=>{ const [tw]=key.split('-').map(Number); return tw===wi; });
   const autoCount = weekAutoTasks.reduce((sum,[,tasks])=>sum+tasks.length,0);
-  h += `<div style="font-size:.76rem;color:var(--text2);margin-bottom:10px">任务 ${p.d}/${p.t-p.s} 完成 · 回滚 ${p.w} · 跳过 ${p.s}${autoCount>0?' · 自动回滚 '+autoCount+'项':''}</div>`;
+  h += `<div style="font-size:.74rem;color:var(--text2);margin-bottom:12px">已完成 ${p.d}/${p.t-p.s} · 回滚 ${p.w} · 跳过 ${p.s}${autoCount>0?' · 自动回滚 '+autoCount+'项':''}</div>`;
 
   W[wi].days.forEach((day, di) => {
     const isToday = isCurrentDay(wi, di);
@@ -691,59 +611,78 @@ function renderWeek(wi) {
     const key = `${wi}-${di}`;
     const dayAutoTasks = autoTasks[key] || [];
 
-    h += `<div class="day-card${isToday?' today':''}">`;
-    h += `<div class="day-header"><h3>${day.date}${isToday?' · 今天':''}</h3><div class="meta">`;
-    if(day.badge) h += `<span class="badge ${day.badge==='review'?'review':'test'}">${day.badge==='review'?'复习':'检测'}</span>`;
-    h += `<span class="day-time">${dayTime}分钟</span></div></div>`;
+    h += `<div class="day-section">`;
+    h += `<div class="day-bar${isToday?' today-bar':''}">`;
+    h += `<h3>${day.date}${isToday?' · 今天':''}</h3>`;
+    h += `<div class="day-meta">`;
+    if(day.badge) h += `<span class="day-badge ${day.badge==='review'?'review':'test'}">${day.badge==='review'?'复习日':'检测日'}</span>`;
+    h += `<span>${dayTime}分钟</span></div></div>`;
 
     let dt=0, dd=0;
     day.subs.forEach((_,si)=>{ dt++; if(gs(wi,di,si)==='done') dd++; });
-    if(dt>0) h += `<div class="day-stats">${dd}/${dt} 已完成</div>`;
+    if(dt>0) h += `<div class="day-stats">${dd}/${dt} 完成</div>`;
 
-    day.subs.forEach((sub, si) => { h += renderSubtask(wi, di, si, sub); });
-    dayAutoTasks.forEach(at => { h += renderAutoTask(at); });
-    h += '</div>';
+    // Original task cards
+    day.subs.forEach((sub, si) => { h += renderTaskCard(wi, di, si, sub, false); });
+
+    // Auto task cards
+    dayAutoTasks.forEach(at => { h += renderAutoCard(at); });
+
+    h += `</div>`;
   });
 
-  h += `<div class="actions"><button class="act-btn danger" onclick="if(confirm('确定重置本周所有状态？')){resetWeek(${wi});}">重置本周</button></div>`;
+  h += `<div style="margin-top:16px"><button class="header-act danger" onclick="if(confirm('重置本周所有状态？')){resetWeek(${wi});}">重置本周</button></div>`;
   return h;
 }
 
-function renderSubtask(wi, di, si, sub) {
+function renderTaskCard(wi, di, si, sub, isAuto) {
   const st = gs(wi,di,si), note = gn(wi,di,si);
-  const subjCls = sub.s==='math'?'subj-math':sub.s==='chinese'?'subj-chinese':'subj-english';
-  let h = '<div class="sub-row">';
-  h += `<span class="subj-tag ${subjCls}">${sub.d}</span>`;
-  h += `<span class="time-badge">${sub.time}′</span>`;
-  h += `<span class="sub-content${sub.t==='core'?' core':''}">${sub.c}</span>`;
-  if(sub.t==='core') h += '<span class="core-dot">重点</span>';
-  h += '<span class="status-btns">';
-  h += `<button class="sbtn${st==='done'?' on-done':''}" onclick="setStatus(${wi},${di},${si},'done')">完成</button>`;
-  h += `<button class="sbtn${st==='warn'?' on-warn':''}" onclick="setStatus(${wi},${di},${si},'warn')">回滚</button>`;
-  h += `<button class="sbtn${st==='skip'?' on-skip':''}" onclick="setStatus(${wi},${di},${si},'skip')">跳过</button>`;
-  h += '</span></div>';
-  h += `<input class="sub-notes" id="nt-${wi}-${di}-${si}" placeholder="备注（错在哪/为什么跳过）…" value="${esc(note)}" onchange="upNote(${wi},${di},${si},this.value)" style="display:${note||st==='warn'?'block':'none'};margin-left:86px;width:calc(100%-90px)">`;
+  const cardCls = sub.s==='math'?'math-card':sub.s==='chinese'?'chinese-card':'english-card';
+  const subjCls = sub.s==='math'?'math-subj':sub.s==='chinese'?'chinese-subj':'english-subj';
+
+  let h = `<div class="task-card ${cardCls}">`;
+  // Top line: subject, time, core badge
+  h += `<div class="card-top">`;
+  h += `<span class="card-subj ${subjCls}">${sub.d}</span>`;
+  h += `<span class="card-time">${sub.time}分钟</span>`;
+  if(sub.t==='core') h += `<span class="card-core">● 重点</span>`;
+  h += `</div>`;
+  // Body
+  h += `<div class="card-body">${sub.c}</div>`;
+  // Actions
+  h += `<div class="card-actions">`;
+  h += `<button class="cbtn${st==='done'?' on-done':''}" onclick="setStatus(${wi},${di},${si},'done')">✓ 完成</button>`;
+  h += `<button class="cbtn${st==='warn'?' on-warn':''}" onclick="setStatus(${wi},${di},${si},'warn')">⟳ 回滚</button>`;
+  h += `<button class="cbtn${st==='skip'?' on-skip':''}" onclick="setStatus(${wi},${di},${si},'skip')">— 跳过</button>`;
+  h += `</div>`;
+  // Note
+  h += `<input class="card-note" id="nt-${wi}-${di}-${si}" placeholder="备注（错在哪/为什么跳过）…" value="${esc(note)}" onchange="upNote(${wi},${di},${si},this.value)" style="display:${note||st==='warn'?'block':'none'}">`;
+  h += `</div>`;
   return h;
 }
 
-function renderAutoTask(at) {
+function renderAutoCard(at) {
   const st = autoStatus(at.id), note = autoNote(at.id);
-  const subjCls = at.sourceSubject==='math'?'subj-math':at.sourceSubject==='chinese'?'subj-chinese':'subj-english';
+  const cardCls = at.sourceSubject==='math'?'math-card':at.sourceSubject==='chinese'?'chinese-card':'english-card';
+  const subjCls = at.sourceSubject==='math'?'math-subj':at.sourceSubject==='chinese'?'chinese-subj':'english-subj';
   const label = at.sourceSubject==='math'?'数学':at.sourceSubject==='chinese'?'语文':'英语';
   const noteId = `ant-${at.id.replace(/[^a-zA-Z0-9]/g,'_')}`;
-  const short = at.sourceContent.length>50 ? at.sourceContent.substring(0,50)+'…' : at.sourceContent;
-  let h = '<div class="sub-row auto-row">';
-  h += `<span class="auto-badge">${ROUND_LABEL[at.round]||'回滚'}</span>`;
-  h += `<span class="subj-tag ${subjCls}">${label}</span>`;
-  h += `<span class="time-badge">~5′</span>`;
-  h += `<span class="sub-content">${esc(short)}</span>`;
-  h += `<span class="review-round">自${W[at.sourceWi].days[at.sourceDi].date}</span>`;
-  h += '<span class="status-btns">';
-  h += `<button class="sbtn${st==='done'?' on-done':''}" onclick="setAutoStatus('${at.id}','done')">完成</button>`;
-  h += `<button class="sbtn${st==='warn'?' on-warn':''}" onclick="setAutoStatus('${at.id}','warn')">回滚</button>`;
-  h += `<button class="sbtn${st==='skip'?' on-skip':''}" onclick="setAutoStatus('${at.id}','skip')">跳过</button>`;
-  h += '</span></div>';
-  h += `<input class="sub-notes" id="${noteId}" placeholder="回滚结果…" value="${esc(note)}" onchange="upAutoNote('${at.id}',this.value)" style="display:${note||st==='warn'?'block':'none'};margin-left:96px;width:calc(100%-100px)">`;
+
+  let h = `<div class="task-card auto-card">`;
+  h += `<div class="card-top">`;
+  h += `<span class="auto-tag">${ROUND_LABEL[at.round]||'回滚'}</span>`;
+  h += `<span class="card-subj ${subjCls}">${label}</span>`;
+  h += `<span class="card-time">~5分钟</span>`;
+  h += `<span class="card-source">源自${W[at.sourceWi].days[at.sourceDi].date}</span>`;
+  h += `</div>`;
+  h += `<div class="card-body">${at.sourceContent}</div>`;
+  h += `<div class="card-actions">`;
+  h += `<button class="cbtn${st==='done'?' on-done':''}" onclick="setAutoStatus('${at.id}','done')">✓ 完成</button>`;
+  h += `<button class="cbtn${st==='warn'?' on-warn':''}" onclick="setAutoStatus('${at.id}','warn')">⟳ 回滚</button>`;
+  h += `<button class="cbtn${st==='skip'?' on-skip':''}" onclick="setAutoStatus('${at.id}','skip')">— 跳过</button>`;
+  h += `</div>`;
+  h += `<input class="card-note" id="${noteId}" placeholder="回滚结果…" value="${esc(note)}" onchange="upAutoNote('${at.id}',this.value)" style="display:${note||st==='warn'?'block':'none'}">`;
+  h += `</div>`;
   return h;
 }
 
@@ -763,9 +702,9 @@ function isCurrentDay(wi, di) {
   return false;
 }
 
-// ===== ERROR TRACKER =====
-function renderErrors() {
-  let h = '<p style="font-size:.78rem;color:var(--text2);margin-bottom:16px">标记"回滚"的子任务会自动提示录入，已解决的会划线。</p>';
+// ===== ERRORS =====
+function renderErrors(){
+  let h = '<p style="font-size:.76rem;color:var(--text2);margin-bottom:14px">标记"回滚"的子任务会自动提示录入，已解决的会划线。</p>';
   const warnItems = [];
   W.forEach((w,wi)=>{ w.days.forEach((d,di)=>{ d.subs.forEach((sub,si)=>{
     if(gs(wi,di,si)==='warn') warnItems.push({sub,wi,di,si});
@@ -792,11 +731,11 @@ function renderErrors() {
       h += `<td><input value="${esc(e.desc||'')}" onchange="upErr('${sb.k}',${idx},'desc',this.value)" placeholder="怎么错的"></td>`;
       h += `<td><input value="${esc(e.errorType||'')}" onchange="upErr('${sb.k}',${idx},'errorType',this.value)" placeholder="概念/粗心"></td>`;
       h += `<td style="white-space:nowrap">`;
-      h += `<button class="act-btn primary" style="font-size:.62rem;padding:2px 6px" onclick="toggleErr('${sb.k}',${idx})">${e.resolved?'撤销':'解决'}</button>`;
-      h += `<button class="act-btn danger" style="font-size:.62rem;padding:2px 6px" onclick="delErr('${sb.k}',${idx})">删</button></td></tr>`;
+      h += `<button class="header-act sync" style="font-size:.6rem;padding:2px 6px" onclick="toggleErr('${sb.k}',${idx})">${e.resolved?'撤销':'解决'}</button>`;
+      h += `<button class="header-act danger" style="font-size:.6rem;padding:2px 6px" onclick="delErr('${sb.k}',${idx})">删</button></td></tr>`;
     });
     h += '</table>';
-    h += `<button class="act-btn primary" style="margin-top:6px" onclick="addErr('${sb.k}')">+ 添加</button>`;
+    h += `<button class="header-act sync" style="margin-top:6px" onclick="addErr('${sb.k}')">+ 添加</button>`;
     h += '</div>';
   });
   return h;
@@ -808,7 +747,7 @@ function upErr(k,i,f,v){if(S.errors[k][i]){S.errors[k][i][f]=v;save();}}
 
 // ===== ASSESSMENT =====
 function renderAssess(){
-  let h = '<p style="font-size:.78rem;color:var(--text2);margin-bottom:14px">每周六花5分钟填写，系统结合统计数据帮你决策下周方向。</p>';
+  let h = '<p style="font-size:.76rem;color:var(--text2);margin-bottom:14px">每周六花5分钟填写，系统结合统计数据帮你决策下周方向。</p>';
   W.forEach((w,wi)=>{
     const p=weekProgress(wi);
     const a=S.assess[wi]||{};
@@ -816,41 +755,14 @@ function renderAssess(){
     h += `<label>完成率（%）</label><input value="${esc(a.completion||'')}" onchange="upAssess(${wi},'completion',this.value)" placeholder="如 85">`;
     h += `<label>学得最顺的</label><input value="${esc(a.strength||'')}" onchange="upAssess(${wi},'strength',this.value)" placeholder="如 英语单词">`;
     h += `<label>最需要加强的</label><input value="${esc(a.weakness||'')}" onchange="upAssess(${wi},'weakness',this.value)" placeholder="如 面积换算">`;
-    h += `<label>未完成/需补的内容</label><textarea onchange="upAssess(${wi},'rollback',this.value)">${esc(a.rollback||'')}</textarea>`;
+    h += `<label>需继续补的内容</label><textarea onchange="upAssess(${wi},'rollback',this.value)">${esc(a.rollback||'')}</textarea>`;
     h += `<label>下周怎么调整</label><textarea onchange="upAssess(${wi},'adjust',this.value)">${esc(a.adjust||'')}</textarea>`;
     h += '</div>';
   });
-  h += '<div class="actions"><button class="act-btn danger" onclick="if(confirm(\'清除所有评估？\')){S.assess={};save();refresh();}">清除评估</button></div>';
+  h += '<div style="margin-top:12px"><button class="header-act danger" onclick="if(confirm(\'清除所有评估？\')){S.assess={};save();refresh();}">清除评估</button></div>';
   return h;
 }
 function upAssess(wi,f,v){if(!S.assess[wi])S.assess[wi]={};S.assess[wi][f]=v;save();}
-
-// ===== BACKUP / RESTORE =====
-function exportData(){
-  const data={version:5,exportedAt:new Date().toISOString(),subs:S.subs,autoSubs:S.autoSubs,errors:S.errors,assess:S.assess};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=`复习备份-${new Date().toISOString().slice(0,10)}.json`;a.click();
-  URL.revokeObjectURL(url);toast('备份已下载');
-}
-function importData(event){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      const data=JSON.parse(e.target.result);
-      if(!data.subs)throw new Error('无效');
-      for(const k of Object.keys(data.subs)){if(S.subs[k]!==undefined)S.subs[k]=data.subs[k];}
-      if(data.autoSubs)S.autoSubs=data.autoSubs;
-      if(data.errors)S.errors=data.errors;
-      if(data.assess)S.assess=data.assess;
-      save();refresh();toast('数据已恢复');
-    }catch(err){toast('文件格式不正确');}
-  };
-  reader.readAsText(file);event.target.value='';
-}
-function clearAll(){S=defaultState();save();refresh();toast('数据已清除');}
 
 // ===== CLOUD SYNC =====
 const CL_CONFIG='cloud_config';
@@ -904,6 +816,7 @@ async function syncFromCloud(){
 }
 
 // ===== UTILS =====
+function clearAll(){S=defaultState();save();refresh();toast('数据已清除');}
 function updateLastSave(){
   const el=document.getElementById('lastSave');if(!el)return;
   const n=new Date();
@@ -926,7 +839,7 @@ refresh();
 setTimeout(()=>{
   for(let wi=0;wi<W.length;wi++)for(let di=0;di<W[wi].days.length;di++)if(isCurrentDay(wi,di)){
     curTab='week-'+wi;refresh();
-    setTimeout(()=>{const cards=document.querySelectorAll('.day-card.today');if(cards.length>0)cards[0].scrollIntoView({behavior:'smooth',block:'start'});},200);
+    setTimeout(()=>{const cards=document.querySelectorAll('.day-bar.today-bar');if(cards.length>0)cards[0].scrollIntoView({behavior:'smooth',block:'start'});},200);
     return;
   }
 },100);
