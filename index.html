@@ -157,7 +157,21 @@ header h1{font-size:1.1rem;text-align:center}
     <button class="btn btn-sm" style="background:#f0fdf4;color:var(--green);border:1px solid var(--green);font-size:.68rem;" onclick="exportData()">📥 导出备份</button>
     <button class="btn btn-sm" style="background:#fff;color:var(--text2);border:1px solid var(--border);font-size:.68rem;" onclick="document.getElementById('importFile').click()">📤 导入备份</button>
     <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
+    <button class="btn btn-sm" id="cloudSyncBtn" style="background:#eff6ff;color:var(--blue);border:1px solid var(--blue);font-size:.68rem;" onclick="toggleCloudPanel()">☁️ 云端同步</button>
     <button class="btn btn-sm" style="background:#fff;color:var(--red);border:1px solid var(--red);font-size:.68rem;" onclick="if(confirm('确定清除所有数据？（建议先导出备份）')){clearAll();}">🗑 清除数据</button>
+  </div>
+  <div id="cloudPanel" style="display:none;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px;margin:6px auto 0;max-width:600px;font-size:.75rem;">
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <input id="jsonbinKey" placeholder="JSONBin API Key" style="flex:1;min-width:140px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;font-size:.7rem;">
+      <input id="jsonbinId" placeholder="Bin ID" style="flex:1;min-width:120px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;font-size:.7rem;">
+      <button class="btn btn-sm btn-blue" onclick="saveCloudConfig()">保存配置</button>
+    </div>
+    <div style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-sm" style="background:var(--green);color:#fff;" onclick="syncToCloud()">📤 上传到云端</button>
+      <button class="btn btn-sm" style="background:var(--blue);color:#fff;" onclick="syncFromCloud()">📥 从云端加载</button>
+      <span id="cloudStatus" style="font-size:.68rem;color:var(--text2);"></span>
+    </div>
+    <div style="font-size:.65rem;color:var(--text2);margin-top:4px;">如何获取：<a href="https://jsonbin.io" target="_blank">jsonbin.io</a> 注册免费账号 → 创建 Bin → 复制 API Key 和 Bin ID</div>
   </div>
   <div class="progress-wrap"><div class="progress-fill" id="progBar" style="width:0%"></div></div>
 </header>
@@ -898,6 +912,103 @@ function clearAll() {
   save();
   refresh();
   toast('所有数据已清除');
+}
+
+// ===== CLOUD SYNC (JSONBin.io) =====
+const CL_CONFIG = 'cloud_config';
+
+function getCloudConfig() {
+  try { return JSON.parse(localStorage.getItem(CL_CONFIG)) || {}; } catch(e) { return {}; }
+}
+function setCloudConfig(c) { localStorage.setItem(CL_CONFIG, JSON.stringify(c)); }
+
+function toggleCloudPanel() {
+  const p = document.getElementById('cloudPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+  const cfg = getCloudConfig();
+  if (cfg.key) document.getElementById('jsonbinKey').value = cfg.key;
+  if (cfg.id) document.getElementById('jsonbinId').value = cfg.id;
+}
+function saveCloudConfig() {
+  const key = document.getElementById('jsonbinKey').value.trim();
+  const id = document.getElementById('jsonbinId').value.trim();
+  if (!key || !id) { toast('请填写 API Key 和 Bin ID'); return; }
+  setCloudConfig({key, id});
+  toast('云端配置已保存');
+}
+
+function buildPayload() {
+  return {
+    version: 5,
+    updatedAt: new Date().toISOString(),
+    subs: S.subs,
+    autoSubs: S.autoSubs,
+    errors: S.errors,
+    assess: S.assess,
+  };
+}
+
+async function syncToCloud() {
+  const cfg = getCloudConfig();
+  if (!cfg.key || !cfg.id) { toggleCloudPanel(); toast('请先配置云端存储'); return; }
+  const st = document.getElementById('cloudStatus');
+  st.textContent = '上传中...';
+  try {
+    const payload = buildPayload();
+    const resp = await fetch(`https://api.jsonbin.io/v3/b/${cfg.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': cfg.key,
+        'X-Bin-Versioning': 'false',
+      },
+      body: JSON.stringify(payload),
+    });
+    if (resp.ok) {
+      st.textContent = `✓ 已同步 ${new Date().toLocaleTimeString()}`;
+      toast('云端同步成功！其他设备可加载');
+    } else {
+      const err = await resp.json().catch(()=>({}));
+      st.textContent = '上传失败';
+      toast('同步失败: ' + (err.message || resp.status));
+    }
+  } catch(e) {
+    st.textContent = '网络错误';
+    toast('网络连接失败，请重试');
+  }
+}
+
+async function syncFromCloud() {
+  const cfg = getCloudConfig();
+  if (!cfg.key || !cfg.id) { toggleCloudPanel(); toast('请先配置云端存储'); return; }
+  const st = document.getElementById('cloudStatus');
+  st.textContent = '下载中...';
+  try {
+    const resp = await fetch(`https://api.jsonbin.io/v3/b/${cfg.id}/latest`, {
+      headers: { 'X-Master-Key': cfg.key },
+    });
+    if (resp.ok) {
+      const result = await resp.json();
+      const data = result.record;
+      if (!data.subs) { toast('云端数据格式无效'); return; }
+      for (const k of Object.keys(data.subs)) {
+        if (S.subs[k] !== undefined) S.subs[k] = data.subs[k];
+      }
+      if (data.autoSubs) S.autoSubs = data.autoSubs;
+      if (data.errors) S.errors = data.errors;
+      if (data.assess) S.assess = data.assess;
+      save();
+      refresh();
+      st.textContent = `✓ 已加载 ${new Date().toLocaleTimeString()}`;
+      toast('云端数据已加载！');
+    } else {
+      st.textContent = '下载失败';
+      toast('加载失败，请检查配置');
+    }
+  } catch(e) {
+    st.textContent = '网络错误';
+    toast('网络连接失败，请重试');
+  }
 }
 
 // ===== UTILS =====
